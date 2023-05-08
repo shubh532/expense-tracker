@@ -1,0 +1,25 @@
+.FormContainer{
+    border-radius: 14px;
+    color: aliceblue;
+    background-color: transparent;
+    margin: 2rem auto;
+    width: 35%;
+    padding: 1rem;
+    border: 2px solid;
+}
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 2rem;
+}
+.Btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Btns .logSignBtn,.Btns .SwitchBtn{
+    padding: 8px;
+    margin:0.5rem 2rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
+}
