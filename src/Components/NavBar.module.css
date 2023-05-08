@@ -8,7 +8,11 @@
 /* .HeadContaner{
 } */
 .HeadContaner h1{
-    margin: 0.5rem 0.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(0, 102, 255);
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0.5rem 1rem;
 }
 .NavTab{
     font-family:'Times New Roman', Times, serif;
