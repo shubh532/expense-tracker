@@ -1,4 +1,4 @@
-import { useRef, useContext, useState } from "react"
+import { useRef, useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import Style from "./Profile.module.css"
 import ProfilePic from "../Media/ProfilePicImg.png"
@@ -9,11 +9,35 @@ import axios from "axios"
 
 function Profile() {
     const [Loader, SetLoading] = useState(false)
+    const [Name, SetName] = useState("")
+    const [PhotoUrl, SetPhotoUrl] = useState("")
 
     const idToken = useContext(TokenAPI)
 
     const getName = useRef()
     const getProfileImg = useRef()
+    useEffect(() => {
+        async function GetDataFireBase() {
+            SetLoading(true)
+            try {
+                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:update?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
+                    idToken: idToken.TokenId
+                })
+                if (Response.status === 200) {
+                    SetName(Response.data.displayName)
+                    SetPhotoUrl(Response.data.photoUrl)
+                    SetLoading(false)
+                }
+            } catch (err) {
+                console.log(err)
+                SetLoading(false)
+                alert("some Error Occure")
+            }
+        }
+        GetDataFireBase()
+    },[])
+
+
 
     async function UpdatProfile(e) {
         e.preventDefault()
@@ -32,11 +56,11 @@ function Profile() {
             })
             console.log("i run ")
             if (Response.status === 200) {
-                console.log(Response,"Succed")
+                console.log(Response, "Succed")
                 SetLoading(false)
                 alert("successFully Updated")
             }
-        } catch (err){
+        } catch (err) {
             console.log(err)
             SetLoading(false)
             alert("some Error Occure")
@@ -57,7 +81,7 @@ function Profile() {
                     <div className={Style.ImgContainer}><img src={NameImg} alt="img"></img></div>
                     <div className={Style.Inp}>
                         <label>Full Name</label>
-                        <input type="text" ref={getName} required></input>
+                        <input type="text" value={Name} onChange={(e) => SetName(e.target.value)} ref={getName} required></input>
                     </div>
 
                 </div>
@@ -65,7 +89,7 @@ function Profile() {
                     <div className={Style.ImgContainer}><img src={ProfilePic} alt="img"></img></div>
                     <div className={Style.Inp}>
                         <label>Profile Photo URl</label>
-                        <input type="url" ref={getProfileImg} required></input>
+                        <input type="url" value={PhotoUrl} onChange={(e) => SetPhotoUrl(e.target.value)} ref={getProfileImg} required></input>
                     </div>
 
                 </div>

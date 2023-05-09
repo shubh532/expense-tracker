@@ -7,7 +7,7 @@ import HomePage from './Pages/Home';
 import TokenAPI from './ContextAPI/TokenAPI';
 import Profile from './Pages/Profile';
 function App() {
-
+  
   const LogStatus = useContext(TokenAPI)
   return (
     <React.Fragment>
