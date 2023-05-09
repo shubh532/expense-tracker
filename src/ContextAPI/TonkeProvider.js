@@ -3,6 +3,7 @@ import TokenAPI from "./TokenAPI";
 
 function TokenProvider(props){
     const ID=localStorage.getItem("TOkenID")
+    const Email=localStorage.getItem("Email")
 
     const [TokenId,SetTokenId]=useState(ID)
 
@@ -18,10 +19,10 @@ function TokenProvider(props){
 
     const defaultValues={
         TokenId:TokenId,
+        Email:Email,
         isLogin:isLogin,
         LogIn:LogIn,
         LogOut:LogOut,
-        mess:"i am Working"
     }
 
     return(

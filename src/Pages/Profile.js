@@ -20,12 +20,12 @@ function Profile() {
         async function GetDataFireBase() {
             SetLoading(true)
             try {
-                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:update?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
+                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
                     idToken: idToken.TokenId
                 })
                 if (Response.status === 200) {
-                    SetName(Response.data.displayName)
-                    SetPhotoUrl(Response.data.photoUrl)
+                    SetName(Response.data.users[0].displayName)
+                    SetPhotoUrl(Response.data.users[0].photoUrl)
                     SetLoading(false)
                 }
             } catch (err) {
@@ -35,15 +35,36 @@ function Profile() {
             }
         }
         GetDataFireBase()
-    },[])
+    }, [])
 
+    async function verifyMail(e) {
+        e.preventDefault()
+        SetLoading(true)
+        try {
+            console.log("i am going to run")
+            const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
+                requestType: "VERIFY_EMAIL",
+                idToken: idToken.TokenId
+            }, {
+                headers: { "Content-Type": "application/json" }
+            })
+            if (Response.status===200){
+                console.log(Response)
+                SetLoading(false)
+                alert("Email is Verified")
+            }
 
+        } catch (err) {
+            console.log(err)
+            alert("USER NOT Found SignUp Again")
+        }
+    }
 
     async function UpdatProfile(e) {
         e.preventDefault()
         SetLoading(true)
         try {
-            console.log("i am going to run")
+
             const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:update?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
                 idToken: idToken.TokenId,
                 displayName: getName.current.value,
@@ -95,6 +116,11 @@ function Profile() {
                 </div>
             </form>
             {Loader ? <h2>Please Wait...</h2> : <button onClick={UpdatProfile}>Update</button>}
+
+            <div className={Style.verifyMail}>
+                <h3>{idToken.Email}</h3>
+                {Loader?<h4>Verifying Email...</h4>:<button onClick={verifyMail}>Verify</button>}
+            </div>
         </div>
     )
 }
