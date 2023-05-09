@@ -76,3 +76,10 @@
     cursor: pointer;
     transform: translate(2px,2px);
 }
+
+.FormContainer form a{
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    color: #007bf5;
+}

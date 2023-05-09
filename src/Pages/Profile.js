@@ -29,7 +29,6 @@ function Profile() {
                     SetLoading(false)
                 }
             } catch (err) {
-                console.log(err)
                 SetLoading(false)
                 alert("some Error Occure")
             }
@@ -41,21 +40,18 @@ function Profile() {
         e.preventDefault()
         SetLoading(true)
         try {
-            console.log("i am going to run")
             const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
                 requestType: "VERIFY_EMAIL",
                 idToken: idToken.TokenId
             }, {
                 headers: { "Content-Type": "application/json" }
             })
-            if (Response.status===200){
-                console.log(Response)
+            if (Response.status === 200) {
                 SetLoading(false)
                 alert("Email is Verified")
             }
 
         } catch (err) {
-            console.log(err)
             alert("USER NOT Found SignUp Again")
         }
     }
@@ -119,7 +115,7 @@ function Profile() {
 
             <div className={Style.verifyMail}>
                 <h3>{idToken.Email}</h3>
-                {Loader?<h4>Verifying Email...</h4>:<button onClick={verifyMail}>Verify</button>}
+                {Loader ? <h4>Verifying Email...</h4> : <button onClick={verifyMail}>Verify</button>}
             </div>
         </div>
     )

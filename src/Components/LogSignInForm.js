@@ -3,14 +3,15 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import axios from "axios"
 import Style from "./LogSignInForm.module.css"
 import TokenAPI from "../ContextAPI/TokenAPI"
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
 
 function LogSignInForm() {
     const [isLogin, SetisLogin] = useState(true)
     const [Loading, SetLoading] = useState(false)
     const [inpAlert, SetInpAlert] = useState(false)
 
-    const redirectPage=useHistory()
-    
+    const redirectPage = useHistory()
+
     const getEmail = useRef()
     const getPassWord = useRef()
     const getConfirmPassWord = useRef()
@@ -103,11 +104,11 @@ function LogSignInForm() {
                         <button className={Style.logSignBtn} onClick={!isLogin ? SignUpHandler : LoginHandler} >{isLogin ? "LogIn" : "Sign Up"}</button>
                         <button className={Style.SwitchBtn} onClick={DontHaveAcHandler}>{isLogin ? "Don't Have Account" : "Have an account..? LogIn"}</button>
                     </div>
-
+                    <Link to="/reset-password"><span>Forgot Password..?</span></Link>
                 </form> : <h1>Authentication...</h1>}
-
             </div>
         </div>
+
 
     )
 }
