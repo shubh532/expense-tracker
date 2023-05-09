@@ -1,28 +1,93 @@
-.NavContainer{
+.NavContainer {
+    /* position: fixed; */
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
     border: 2px solid;
     background-color: rgb(245, 250, 255);
+    z-index: 5;
+    margin: 0px;
+    width: 100vw;
 }
+
 /* .HeadContaner{
 } */
-.HeadContaner h1{
+.HeadContaner h1 {
     font-family: 'Times New Roman', Times, serif;
     color: rgb(0, 102, 255);
     font-size: 2rem;
     font-weight: bold;
     margin: 0.5rem 1rem;
 }
-.NavTab{
-    font-family:'Times New Roman', Times, serif;
+
+.NavTab {
+    font-family: 'Times New Roman', Times, serif;
     font-size: larger;
     font-weight: bold;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 0rem 1rem;
+    margin: 0rem;
 }
-.NavTab span{
+
+.NavTab a {
+    color: black;
+    text-decoration: none;
     margin: 0.5rem;
+}
+
+.LogInOutBsns {
+    width: 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    right: 3px;
+    margin: 0px;
+    padding: 2px;
+}
+
+.LogInOutBsns .LogOutBtn {
+    padding: 10px 0.5rem;
+    color: aliceblue;
+    font-size: large;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 4px;
+    background-color: rgb(255, 110, 110);
+}
+
+.LogInOutBsns .LogInBtn {
+    padding: 10px 0.5rem;
+    color: aliceblue;
+    font-size: large;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 4px;
+    background-color: rgb(114, 182, 114);
+}
+
+.LogInOutBsns .LogInBtn:hover {
+    box-shadow: 0px 0px 7px 2px rgb(30, 55, 30);
+    cursor: pointer;
+    transform: translate(2px, 2px);
+}
+
+.LogInOutBsns .LogOutBtn:hover {
+    box-shadow: 0px 0px 7px 2px rgb(77, 28, 28);
+    cursor: pointer;
+    transform: translate(2px, 2px);
+}
+
+.Profile {
+    display: contents;
+   
+}
+
+.Profile img {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }

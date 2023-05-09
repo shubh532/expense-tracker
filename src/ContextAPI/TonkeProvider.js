@@ -2,7 +2,9 @@ import React,{useState} from "react";
 import TokenAPI from "./TokenAPI";
 
 function TokenProvider(props){
-    const [TokenId,SetTokenId]=useState(null)
+    const ID=localStorage.getItem("TOkenID")
+
+    const [TokenId,SetTokenId]=useState(ID)
 
     const isLogin=!!TokenId
 
