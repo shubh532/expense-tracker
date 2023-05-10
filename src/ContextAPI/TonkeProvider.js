@@ -1,33 +1,36 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import TokenAPI from "./TokenAPI";
+import ExpenseCtxPrivider from "./ExpenseContext";
 
-function TokenProvider(props){
-    const ID=localStorage.getItem("TOkenID")
-    const Email=localStorage.getItem("Email")
+function TokenProvider(props) {
+    const ID = localStorage.getItem("TOkenID")
+    const Email = localStorage.getItem("Email")
 
-    const [TokenId,SetTokenId]=useState(ID)
+    const [TokenId, SetTokenId] = useState(ID)
 
-    const isLogin=!!TokenId
+    const isLogin = !!TokenId
 
-    function LogIn(id){
+    function LogIn(id) {
         SetTokenId(id)
     }
 
-    function LogOut(){
+    function LogOut() {
         SetTokenId(null)
     }
 
-    const defaultValues={
-        TokenId:TokenId,
-        Email:Email,
-        isLogin:isLogin,
-        LogIn:LogIn,
-        LogOut:LogOut,
+    const defaultValues = {
+        TokenId: TokenId,
+        Email: Email,
+        isLogin: isLogin,
+        LogIn: LogIn,
+        LogOut: LogOut,
     }
 
-    return(
+    return (
         <TokenAPI.Provider value={defaultValues}>
-            {props.children}
+            <ExpenseCtxPrivider>
+                {props.children}
+            </ExpenseCtxPrivider>
         </TokenAPI.Provider>
     )
 

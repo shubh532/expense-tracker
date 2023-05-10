@@ -7,8 +7,9 @@ import HomePage from './Pages/Home';
 import TokenAPI from './ContextAPI/TokenAPI';
 import Profile from './Pages/Profile';
 import ResetPassword from './Components/ResetPassword';
+import Product from './Pages/Product';
 function App() {
-  
+
   const LogStatus = useContext(TokenAPI)
   return (
     <React.Fragment>
@@ -19,10 +20,11 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/product">
-          {!LogStatus.isLogin&&<Redirect to="/login" />}
+          {LogStatus.isLogin && <Product />}
+          {!LogStatus.isLogin && <Redirect to="/login" />}
         </Route>
         <Route path="/abutus">
-          {!LogStatus.isLogin&&<Redirect to="/login" />}
+          {!LogStatus.isLogin && <Redirect to="/login" />}
         </Route>
         <Route path="/login">
           <LogSignInForm />

@@ -1,0 +1,57 @@
+.ExFormContainer {
+    background-color: rgb(40, 64, 97);
+    border: 2px solid;
+    color: aliceblue;
+    margin: 1rem 2r;
+    padding: 1rem;
+}
+
+.ExFormContainer form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.InputContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.InputContainer input {
+    width: 17rem;
+    padding: 3px;
+    font-size: medium;
+    border-radius: 5px;
+    border: 2px solid rgb(62, 62, 62);
+}
+
+.InputContainer label {
+    font-size: large;
+    font-weight: bold;
+    margin: 0.3rem;
+}
+
+.InputContainer select {
+    width: 6rem;
+    font-size: medium;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid rgb(61, 61, 61);
+}
+
+.ExFormContainer button{
+    padding: 7px;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 0px ;
+    background-color: rgb(72, 161, 132);
+    color: aliceblue;
+}
+
+
+.ExFormContainer button:hover{
+    background-color: rgb(0, 146, 97);
+    cursor: pointer;
+}
