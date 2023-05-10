@@ -4,7 +4,6 @@ import Style from "./expenseList.module.css"
 
 function ExpenseList() {
     const ExpenseData = useContext(ExpenseCtx)
-    console.log(ExpenseData)
 
     return (
         <div className={Style.ListContainer}>
@@ -24,10 +23,7 @@ function ExpenseList() {
                             <td>{item.Date}</td>
                         </tr>
                     )
-                })
-
-                }
-
+                })}
             </table>
         </div>
     )
