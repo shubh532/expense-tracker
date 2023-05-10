@@ -1,0 +1,38 @@
+.ListContainer {
+    border: 2px solid rgb(154, 153, 153);
+    width: 40rem;
+    margin: 1.5rem auto;
+    padding: 0px;
+    overflow: scroll;
+    height: 73vh;
+    /* background-color: rgb(176, 187, 205); */
+}
+
+.ListContainer table {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.TableHeading {
+    font-size: large;
+    color: aliceblue;
+    margin: 0px;
+    background-color: rgb(40, 64, 97);
+}
+
+.ListContainer table tr {
+    display: flex;
+    font-size: larger;
+    font-weight: bold;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 0rem;
+}
+
+.tableList:hover {
+    cursor: pointer;
+    background-color: rgb(208, 208, 208);
+}

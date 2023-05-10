@@ -7,6 +7,7 @@ function ExpenseCtxPrivider(props){
     function AddExpenseData(data){
         AddExpense([...expense,data])
     }
+    console.log(expense)
 
     const DefultValues={
         expenseData:expense,

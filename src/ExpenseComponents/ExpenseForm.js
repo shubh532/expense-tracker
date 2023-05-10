@@ -4,32 +4,39 @@ import Style from "./ExpenseForm.module.css"
 
 function ExpenseForm() {
     const ExpenseData=useContext(ExpenseCtx)
-    const getMoney=useRef()
+    const getAmount=useRef()
     const getDiscription=useRef()
     const getCategory=useRef()
+    const getDate=useRef()
+
+    const currentDate = new Date().toJSON().slice(0, 10);
 
     function AddExpenseHandler(e){
         e.preventDefault()
         const data={
             id:Math.random(),
-            Money:getMoney.current.value,
+            Amount:getAmount.current.value,
             Discription:getDiscription.current.value,
-            Category:getCategory.current.value
+            Category:getCategory.current.value,
+            Date:getDate.current.value
         }
         ExpenseData.AddExpenseData(data)
-        console.log(ExpenseData)
     }
 
     return (
             <div className={Style.ExFormContainer}>
                 <form>
                     <div className={Style.InputContainer}>
-                        <label>Money</label>
-                        <input type="number" ref={getMoney}></input>
+                        <label>Amount</label>
+                        <input type="number" ref={getAmount}></input>
                     </div>
                     <div className={Style.InputContainer}>
                         <label>Discrption</label>
                         <input type="text" ref={getDiscription}></input>
+                    </div>
+                    <div className={Style.InputContainer}>
+                        <label>Date</label>
+                        <input type="date" defaultValue={`${currentDate}`} min="2018-07-22" ref={getDate}></input>
                     </div>
                     <div className={Style.InputContainer}>
                         <label>Category</label>
