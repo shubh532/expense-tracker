@@ -36,3 +36,10 @@
     cursor: pointer;
     background-color: rgb(208, 208, 208);
 }
+
+.LoadingTex h3 {
+    text-align: center;
+    color: aliceblue;
+    background-color: rgb(40, 64, 97);
+    margin: 0.5rem auto;
+}

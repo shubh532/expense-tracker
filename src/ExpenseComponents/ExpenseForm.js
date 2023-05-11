@@ -14,7 +14,6 @@ function ExpenseForm() {
     function AddExpenseHandler(e){
         e.preventDefault()
         const data={
-            id:Math.random(),
             Amount:getAmount.current.value,
             Discription:getDiscription.current.value,
             Category:getCategory.current.value,

@@ -8,23 +8,28 @@ function ExpenseList() {
     return (
         <div className={Style.ListContainer}>
             <table>
-                <tr className={Style.TableHeading}>
-                    <th>Amount</th>
-                    <th>Discription</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                </tr>
-                {ExpenseData.expenseData.map((item)=>{
-                    return(
-                        <tr className={Style.tableList}>
-                            <td>{item.Amount}</td>
-                            <td>{item.Discription}</td>
-                            <td>{item.Category}</td>
-                            <td>{item.Date}</td>
-                        </tr>
-                    )
-                })}
+                <thead>
+                    <tr className={Style.TableHeading}>
+                        <th>Amount</th>
+                        <th>Discription</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {ExpenseData.expenseData.map((item) => {
+                        return (
+                            <tr key={item.id} className={Style.tableList}>
+                                <td>{item.Amount}</td>
+                                <td>{item.Discription}</td>
+                                <td>{item.Category}</td>
+                                <td>{item.Date}</td>
+                            </tr>)
+                    })
+                    }
+                </tbody>
             </table>
+            {ExpenseData.Loader && <div className={Style.LoadingTex}><h3>Adding Expense...</h3></div>}
         </div>
     )
 }
