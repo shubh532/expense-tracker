@@ -3,7 +3,7 @@ import ExpenseCtx from "./createExpenseCtx";
 import { useEffect, useState } from "react";
 
 function ExpenseCtxPrivider(props) {
-    const [expense, AddExpense] = useState([])
+    const [expense,AddExpense ] = useState([])
     const [Loader, SetLoader] = useState(false)
 
     useEffect(() => {
@@ -26,6 +26,25 @@ function ExpenseCtxPrivider(props) {
         FetchData()
     }, [])
 
+    const DeleteFunction=async(id)=>{
+        const Response=await axios.delete(`https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData/${id}.json`)
+        if(Response.status===200){
+            const UpdateExpense=expense.filter(item=>id!==item.id)
+            AddExpense(UpdateExpense)
+        }
+    }
+
+    const updateFunction = async (id,EditedData) => {
+ 
+        const Respons=await axios.put(`https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData/${id}.json`,EditedData)
+        if(Respons.status===200){
+            const UpdatedExpense=expense.map((item)=>item.id===id?{...Respons.data ,id:id}:item)
+            AddExpense(UpdatedExpense)
+
+        }
+
+    }
+
     async function AddExpenseData(data) {
         SetLoader(true)
         try {
@@ -44,7 +63,9 @@ function ExpenseCtxPrivider(props) {
 
     const DefultValues = {
         expenseData: expense,
+        updateFunction:updateFunction,
         AddExpenseData: AddExpenseData,
+        DeleteFunction:DeleteFunction,
         Loader: Loader,
         mess: "work"
     }
