@@ -1,7 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import ExpenseCtx from "../ContextAPI/createExpenseCtx";
 import Style from "./expenseList.module.css"
-import axios from "axios";
 
 function ExpenseList() {
     const ExpenseData = useContext(ExpenseCtx)

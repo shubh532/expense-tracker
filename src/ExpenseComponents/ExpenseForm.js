@@ -42,7 +42,7 @@ function ExpenseForm() {
                         <select name="Category" ref={getCategory}>
                             <option value="Food">Food</option>
                             <option value="Medical">Petrol</option>
-                            <option value="mercedes">Medical</option>
+                            <option value="Medical">Medical</option>
                             <option value="Salary">Salary</option>
                             <option value="other">Other</option>
                         </select>

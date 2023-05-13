@@ -20,9 +20,7 @@ function Profile() {
         async function GetDataFireBase() {
             SetLoading(true)
             try {
-                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
-                    idToken: idToken.TokenId
-                })
+                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {idToken: idToken.TokenId})
                 if (Response.status === 200) {
                     SetName(Response.data.users[0].displayName)
                     SetPhotoUrl(Response.data.users[0].photoUrl)
