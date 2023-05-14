@@ -1,15 +1,34 @@
-import { useContext,useRef } from "react";
-import ExpenseCtx from "../ContextAPI/createExpenseCtx";
+import {useRef } from "react";
 import Style from "./ExpenseForm.module.css"
+import axios from "axios";
+import { ExpenseData } from "../ReduxStore/ExpenseStore";
+import { useDispatch } from "react-redux";
 
 function ExpenseForm() {
-    const ExpenseData=useContext(ExpenseCtx)
     const getAmount=useRef()
     const getDiscription=useRef()
     const getCategory=useRef()
     const getDate=useRef()
 
+    const Dispatch=useDispatch()
+
     const currentDate = new Date().toJSON().slice(0, 10);
+
+   
+    async function AddExpenseData(data) {
+        Dispatch(ExpenseData.Loader(true))
+        try {
+            const Response = await axios.post("https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData.json", { ...data })
+            if (Response.status === 200) {
+                Dispatch(ExpenseData.AddExpenseFunction({ ...data, id: Response.data.name }))
+                Dispatch(ExpenseData.Loader(false))
+            }
+        } catch (err) {
+            console.log(err)
+            Dispatch(ExpenseData.Loader(false))
+        }
+    }
+
 
     function AddExpenseHandler(e){
         e.preventDefault()
@@ -19,7 +38,7 @@ function ExpenseForm() {
             Category:getCategory.current.value,
             Date:getDate.current.value
         }
-        ExpenseData.AddExpenseData(data)
+        AddExpenseData(data)
     }
 
     return (
@@ -41,7 +60,7 @@ function ExpenseForm() {
                         <label>Category</label>
                         <select name="Category" ref={getCategory}>
                             <option value="Food">Food</option>
-                            <option value="Medical">Petrol</option>
+                            <option value="Petrol">Petrol</option>
                             <option value="Medical">Medical</option>
                             <option value="Salary">Salary</option>
                             <option value="other">Other</option>

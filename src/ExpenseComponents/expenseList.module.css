@@ -36,12 +36,17 @@
     cursor: pointer;
     background-color: rgb(208, 208, 208);
 }
-
+.LoadingTex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 36%;
+    margin: auto;
+}
 .LoadingTex h3 {
     text-align: center;
-    color: aliceblue;
-    background-color: rgb(40, 64, 97);
-    margin: 0.5rem auto;
+    color:rgb(40, 64, 97);
+    margin: 0.5rem;
 }
 thead th, tbody td{
     text-align: center;

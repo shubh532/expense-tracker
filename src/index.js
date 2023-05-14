@@ -4,18 +4,18 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import TokenProvider from './ContextAPI/TonkeProvider';
+import { Provider } from 'react-redux';
+import Store from './ReduxStore/Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <TokenProvider>
-    <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </TokenProvider>
-
+  <Provider store={Store}>
+      <BrowserRouter>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

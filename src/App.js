@@ -1,16 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Redirect, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import './App.css';
 import LogSignInForm from './Components/LogSignInForm';
 import NavBar from './Components/NavBar';
 import HomePage from './Pages/Home';
-import TokenAPI from './ContextAPI/TokenAPI';
 import Profile from './Pages/Profile';
 import ResetPassword from './Components/ResetPassword';
 import Product from './Pages/Product';
 function App() {
 
-  const LogStatus = useContext(TokenAPI)
+  const IsLogin=useSelector(state=>state.Authecation.isLogin)
+
   return (
     <React.Fragment>
       <NavBar />
@@ -20,11 +21,11 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/product">
-          {LogStatus.isLogin && <Product />}
-          {!LogStatus.isLogin && <Redirect to="/login" />}
+          {IsLogin&& <Product />}
+          {!IsLogin && <Redirect to="/login" />}
         </Route>
         <Route path="/abutus">
-          {!LogStatus.isLogin && <Redirect to="/login" />}
+          {!IsLogin && <Redirect to="/login" />}
         </Route>
         <Route path="/login">
           <LogSignInForm />
@@ -33,7 +34,7 @@ function App() {
           <ResetPassword />
         </Route>
         <Route to="/profile">
-          {LogStatus.isLogin ? <Profile /> : <Redirect to="/login" />}
+          {IsLogin ? <Profile /> : <Redirect to="/login" />}
         </Route>
         <Route path="*">
           <Redirect to="/login" />

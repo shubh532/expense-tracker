@@ -1,10 +1,10 @@
-import { useRef, useContext, useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import Style from "./Profile.module.css"
 import ProfilePic from "../Media/ProfilePicImg.png"
 import NameImg from "../Media/NameImg.png"
 import SundarPichai from "../Media/Sundar-Pichai.png"
-import TokenAPI from "../ContextAPI/TokenAPI"
 import axios from "axios"
 
 function Profile() {
@@ -12,7 +12,8 @@ function Profile() {
     const [Name, SetName] = useState("")
     const [PhotoUrl, SetPhotoUrl] = useState("")
 
-    const idToken = useContext(TokenAPI)
+    const TokenID = useSelector(state => state.Authecation.IsAuthenticate)
+    const Email = useSelector(state => state.Authecation.email)
 
     const getName = useRef()
     const getProfileImg = useRef()
@@ -20,7 +21,7 @@ function Profile() {
         async function GetDataFireBase() {
             SetLoading(true)
             try {
-                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {idToken: idToken.TokenId})
+                const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {idToken: TokenID})
                 if (Response.status === 200) {
                     SetName(Response.data.users[0].displayName)
                     SetPhotoUrl(Response.data.users[0].photoUrl)
@@ -32,7 +33,7 @@ function Profile() {
             }
         }
         GetDataFireBase()
-    }, [])
+    }, [TokenID])
 
     async function verifyMail(e) {
         e.preventDefault()
@@ -40,7 +41,7 @@ function Profile() {
         try {
             const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
                 requestType: "VERIFY_EMAIL",
-                idToken: idToken.TokenId
+                idToken: TokenID
             }, {
                 headers: { "Content-Type": "application/json" }
             })
@@ -60,7 +61,7 @@ function Profile() {
         try {
 
             const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:update?key= AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
-                idToken: idToken.TokenId,
+                idToken: TokenID,
                 displayName: getName.current.value,
                 photoUrl: getProfileImg.current.value,
                 returnSecureToken: true
@@ -71,7 +72,6 @@ function Profile() {
             })
             console.log("i run ")
             if (Response.status === 200) {
-                console.log(Response, "Succed")
                 SetLoading(false)
                 alert("successFully Updated")
             }
@@ -112,7 +112,7 @@ function Profile() {
             {Loader ? <h2>Please Wait...</h2> : <button onClick={UpdatProfile}>Update</button>}
 
             <div className={Style.verifyMail}>
-                <h3>{idToken.Email}</h3>
+                <h3>{Email}</h3>
                 {Loader ? <h4>Verifying Email...</h4> : <button onClick={verifyMail}>Verify</button>}
             </div>
         </div>

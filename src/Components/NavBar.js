@@ -1,16 +1,18 @@
 import Style from "./NavBar.module.css"
 import profilepic from "../Media/Sundar-Pichai.png"
-import { useContext } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import { Link,useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import TokenAPI from "../ContextAPI/TokenAPI";
-
+import { AuthActions } from "../ReduxStore/Authentication";
 function NavBar() {
-    const LogStatus = useContext(TokenAPI)
+    
+    const isLogin=useSelector(state=>state.Authecation.isLogin)
+    const Dispatch=useDispatch()
+
     const redirectPage =useHistory()
     function LogOutHandler() {
-        LogStatus.LogOut()
+        Dispatch(AuthActions.LogOut())
         redirectPage.replace("/login")
-        localStorage.removeItem("TOkenID")
+        localStorage.removeItem("TokenID")
         localStorage.removeItem("Email")
     }
     return (
@@ -26,9 +28,9 @@ function NavBar() {
                 <Link to="/abutus"><span>About Us</span></Link>
             </div>
             <div className={Style.LogInOutBsns}>
-                {LogStatus.isLogin && <button onClick={LogOutHandler} className={Style.LogOutBtn}>LogOut</button>}
-                {!LogStatus.isLogin && <Link to="/login"><button className={Style.LogInBtn}>LogIn</button></Link>}
-                {LogStatus.isLogin &&<div className={Style.Profile}>
+                {isLogin && <button onClick={LogOutHandler} className={Style.LogOutBtn}>LogOut</button>}
+                {!isLogin && <Link to="/login"><button className={Style.LogInBtn}>LogIn</button></Link>}
+                {isLogin &&<div className={Style.Profile}>
                     <Link to="/profile"><img src={profilepic} alt="Profile"></img></Link>
                 </div>}
             </div>

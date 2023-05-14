@@ -21,7 +21,6 @@ function ExpenseCtxPrivider(props) {
                 })
             }
             AddExpense(Data)
-
         }
         FetchData()
     }, [])
@@ -66,8 +65,7 @@ function ExpenseCtxPrivider(props) {
         updateFunction:updateFunction,
         AddExpenseData: AddExpenseData,
         DeleteFunction:DeleteFunction,
-        Loader: Loader,
-        mess: "work"
+        Loader: Loader
     }
     return (
         <ExpenseCtx.Provider value={DefultValues}>

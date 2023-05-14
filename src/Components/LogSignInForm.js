@@ -1,22 +1,24 @@
-import React, { useState, useRef, useContext } from "react"
+import React, { useState, useRef } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import axios from "axios"
+import { useDispatch } from "react-redux"
 import Style from "./LogSignInForm.module.css"
-import TokenAPI from "../ContextAPI/TokenAPI"
 import { Link } from "react-router-dom/cjs/react-router-dom.min"
+import { AuthActions } from "../ReduxStore/Authentication"
+
 
 function LogSignInForm() {
     const [isLogin, SetisLogin] = useState(true)
     const [Loading, SetLoading] = useState(false)
     const [inpAlert, SetInpAlert] = useState(false)
 
+    const Dispatch = useDispatch()
+
     const redirectPage = useHistory()
 
     const getEmail = useRef()
     const getPassWord = useRef()
     const getConfirmPassWord = useRef()
-
-    const TokenManager = useContext(TokenAPI)
 
     function DontHaveAcHandler(e) {
         e.preventDefault()
@@ -37,9 +39,9 @@ function LogSignInForm() {
                     }
                 })
             if (Response.status === 200) {
+                Dispatch(AuthActions.Login(Response.data.idToken))
                 localStorage.setItem("Email", Response.data.email)
-                localStorage.setItem("TOkenID", Response.data.idToken)
-                TokenManager.LogIn(Response.data.idToken)
+                localStorage.setItem("TokenID", Response.data.idToken)
                 alert("Successfully LogIn")
                 SetLoading(false)
                 redirectPage.replace("/")
@@ -108,9 +110,6 @@ function LogSignInForm() {
                 </form> : <h1>Authentication...</h1>}
             </div>
         </div>
-
-
     )
 }
-
 export default LogSignInForm;
