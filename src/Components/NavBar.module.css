@@ -2,18 +2,19 @@
     /* position: fixed; */
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     /* border: 2px solid; */
     background-color: rgb(245, 250, 255);
     z-index: 5;
-    margin: 0px;;
+    margin: 0px;
+    ;
 }
 
 /* .HeadContaner{
 } */
 .HeadContaner h1 {
     font-family: 'Times New Roman', Times, serif;
-    color: rgb(0, 102, 255);
+    color: rgb(40, 64, 97);
     font-size: 2rem;
     font-weight: bold;
     margin: 0.5rem 1rem;
@@ -30,7 +31,7 @@
 }
 
 .NavTab a {
-    color: black;
+    color: rgb(40, 64, 97);
     text-decoration: none;
     margin: 0.5rem;
 }
@@ -57,6 +58,21 @@
     background-color: rgb(243, 137, 137);
 }
 
+.PremiumBtn {
+    color: goldenrod;
+    font-size: large;
+    font-weight: bold;
+    border: 0px;
+    background-color: rgba(26, 24, 22);
+    padding: 10px;
+    border-radius: 23px;
+}
+
+.PremiumBtn:hover {
+    cursor: pointer;
+    background-color: rgb(74, 74, 74);
+}
+
 .LogInOutBsns .LogInBtn {
     padding: 10px 0.5rem;
     color: aliceblue;
@@ -81,7 +97,7 @@
 
 .Profile {
     display: contents;
-   
+
 }
 
 .Profile img {

@@ -11,11 +11,26 @@ function ExpenseList() {
     const getCategory = useRef()
     const getDiscription = useRef()
     const getDate = useRef()
-
+    const Dispatch = useDispatch()
     const SendingData = useSelector(state => state.ExpenseReducer.Loader)
     const Expensedata = useSelector(state => state.ExpenseReducer.Expense)
+    const TotalAmount = useSelector(state => state.ExpenseReducer.TotalAmt)
+    
+    
+    useEffect(() => {
+        const TotalAmt = () => {
+            let TotalAmount = 0
+            Expensedata.forEach((item) => {
+                TotalAmount = parseInt(item.Amount) + TotalAmount
+                console.log("run")
+            })
+            Dispatch(ExpenseData.TotalAmt(TotalAmount))
+        }
+        TotalAmt()
+    },[Expensedata,Dispatch])
 
-    const Dispatch = useDispatch()
+
+
 
     const EditFunction = (id) => {
         SetEditID(id)
@@ -96,7 +111,9 @@ function ExpenseList() {
                     }
                 </tbody>
             </table>
-            {SendingData && <div className={Style.LoadingTex}><h3>Adding Expense</h3><Loader/></div>}
+            {SendingData && <div className={Style.LoadingTex}><h3>Adding Expense</h3><Loader /></div>}
+            <div className={Style.TotalContainer}><span>TotalExpense :</span><span>{TotalAmount} Rs</span></div>
+
         </div>
     )
 }
