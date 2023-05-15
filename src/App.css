@@ -1,6 +1,6 @@
-.LoginPage{
+.mainContainer{
   position:absolute;
   height: 100vh;
   width: 100%;
-  background-color: rgb(7, 2, 45);
+  background-color: var(--Full-Background);
 }

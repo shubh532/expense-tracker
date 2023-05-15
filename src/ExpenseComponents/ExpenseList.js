@@ -22,7 +22,6 @@ function ExpenseList() {
             let TotalAmount = 0
             Expensedata.forEach((item) => {
                 TotalAmount = parseInt(item.Amount) + TotalAmount
-                console.log("run")
             })
             Dispatch(ExpenseData.TotalAmt(TotalAmount))
         }

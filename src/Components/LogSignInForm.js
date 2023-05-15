@@ -85,7 +85,6 @@ function LogSignInForm() {
     }
 
     return (
-        <div className={Style.FullScreen}>
             <div className={Style.FormContainer}>
                 <h1>{isLogin ? "LogIn" : "Sign Up"}</h1>
                 {inpAlert && <p>Please Enter Creadentials</p>}
@@ -109,7 +108,6 @@ function LogSignInForm() {
                     <Link to="/reset-password"><span>Forgot Password..?</span></Link>
                 </form> : <h1>Authentication...</h1>}
             </div>
-        </div>
     )
 }
 export default LogSignInForm;

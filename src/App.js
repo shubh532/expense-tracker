@@ -10,36 +10,38 @@ import ResetPassword from './Components/ResetPassword';
 import Product from './Pages/Product';
 function App() {
 
-  const IsLogin=useSelector(state=>state.Authecation.isLogin)
+  const IsLogin = useSelector(state => state.Authecation.isLogin)
 
   return (
     <React.Fragment>
-      <NavBar />
+      <div className="mainContainer">
+        <NavBar />
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+          <Route path="/product">
+            {IsLogin && <Product />}
+            {!IsLogin && <Redirect to="/login" />}
+          </Route>
+          <Route path="/abutus">
+            {!IsLogin && <Redirect to="/login" />}
+          </Route>
+          <Route path="/login">
+            <LogSignInForm />
+          </Route>
+          <Route path="/reset-password">
+            <ResetPassword />
+          </Route>
+          <Route to="/profile">
+            {IsLogin ? <Profile /> : <Redirect to="/login" />}
+          </Route>
+          <Route path="*">
+            <Redirect to="/login" />
+          </Route>
 
-      <Switch>
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
-        <Route path="/product">
-          {IsLogin&& <Product />}
-          {!IsLogin && <Redirect to="/login" />}
-        </Route>
-        <Route path="/abutus">
-          {!IsLogin && <Redirect to="/login" />}
-        </Route>
-        <Route path="/login">
-          <LogSignInForm />
-        </Route>
-        <Route path="/reset-password">
-          <ResetPassword />
-        </Route>
-        <Route to="/profile">
-          {IsLogin ? <Profile /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="*">
-          <Redirect to="/login" />
-        </Route>
-      </Switch>
+        </Switch>
+      </div>
     </React.Fragment >
 
   );

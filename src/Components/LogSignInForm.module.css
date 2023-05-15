@@ -1,13 +1,7 @@
-.FullScreen {
-  height: 100vh;
-  padding: 1rem;
-  width: 100%;
-  background-color: rgb(7, 2, 45);
-}
 .FormContainer{
     border-radius: 14px;
-    color: rgb(0, 0, 0);
-    background-color:rgb(255, 255, 255);
+    color: var(--Color);
+    background-color: var(--Background);
     margin:4rem auto;
     width:30%;
     padding: 0.7rem;

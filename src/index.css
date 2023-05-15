@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Dark-theme{
+  --Background:#262e3a;
+  --Full-Background:rgb(8 12 21);
+  --Color:white;
+  --SecondaryClr:white;
+  --listHover:#262e3a;
+}
+
+.Default-theme{
+  --Background:   rgb(40 59 93);
+  --Full-Background:white;
+  --Color:rgb(255, 255, 255);
+  --SecondaryClr:rgb(40 59 93);
+  --listHover: rgb(208, 208, 208);
+}

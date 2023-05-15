@@ -5,17 +5,17 @@
     margin: 0rem;
     padding-top: 2rem;
     color: aliceblue;
-    background-color: rgb(7, 2, 45);
 }
 
 .mainContainer h1 {
     margin: 0rem;
     font-size: 3rem;
+    color: var( --SecondaryClr);
 }
 
 .ProfileMessage {
     text-align: center;
-    background-color: rgb(255, 158, 145);
+    background-color: var(--Background);
     position: absolute;
     top: 4.3rem;
     padding: 0.5rem;
@@ -36,11 +36,10 @@
 .ProfileMessage button {
     width: 8rem;
     font-style: italic;
-    font-weight: bold;
     border: 0px;
     font-size: 1rem;
     background-color: transparent;
-    color: rgb(43, 0, 255);
+    color: rgb(0, 90, 199);
 }
 
 .ProfileMessage button:hover {

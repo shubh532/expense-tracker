@@ -27,7 +27,7 @@ function ResetPassword() {
     }
 
     return (
-        <div className={Style.FullScreen}>
+ 
             <div className={Style.FormContainer}>
                 <form>
                     <h2>Reset Password</h2>
@@ -40,7 +40,6 @@ function ResetPassword() {
                     </div>
                 </form>
             </div>
-        </div >
     )
 }
 
