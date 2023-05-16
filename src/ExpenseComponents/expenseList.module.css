@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     border: 2px solid rgb(154, 153, 153);
-    width: 40rem;
+    width: 70rem;
     margin: 1.5rem auto;
     padding: 0px;
     overflow: scroll;
@@ -56,6 +56,11 @@
     text-align: center;
     color: var(--Color);
     margin: 0.5rem;
+}
+
+.ListContainer table thead {
+    position: sticky;
+    top: 0px;
 }
 
 thead th,
@@ -124,4 +129,19 @@ tbody td input {
     padding: 7px 15px;
     font-size: large;
     font-weight: bold;
+}
+
+::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+    /* background-color: aqua; */
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--Full-Background)
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: var(--Background)
 }
