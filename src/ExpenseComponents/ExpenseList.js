@@ -15,8 +15,8 @@ function ExpenseList() {
     const SendingData = useSelector(state => state.ExpenseReducer.Loader)
     const Expensedata = useSelector(state => state.ExpenseReducer.Expense)
     const TotalAmount = useSelector(state => state.ExpenseReducer.TotalAmt)
-    
-    
+
+
     useEffect(() => {
         const TotalAmt = () => {
             let TotalAmount = 0
@@ -26,7 +26,7 @@ function ExpenseList() {
             Dispatch(ExpenseData.TotalAmt(TotalAmount))
         }
         TotalAmt()
-    },[Expensedata,Dispatch])
+    }, [Expensedata, Dispatch])
 
 
 
@@ -36,7 +36,12 @@ function ExpenseList() {
     }
     useEffect(() => {
         async function FetchData() {
-            const Response = await axios.get("https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData.json")
+            let email = localStorage.getItem("Email")
+            if (email) {
+                email = email.replace(/[.]/g, "")
+                email = email.replace(/[@]/g, "")
+            }
+            const Response = await axios.get(`https://expensetracker-data-default-rtdb.firebaseio.com/${email}.json`)
 
             const Data = []
             for (const key in Response.data) {
