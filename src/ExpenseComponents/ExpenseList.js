@@ -3,7 +3,9 @@ import { ExpenseData } from "../ReduxStore/ExpenseStore";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Style from "./expenseList.module.css"
-import Loader from "../UIComponents/Loader";
+import Months from "./Months";
+import Modal from "../UIComponents/Modal";
+import Input from "../UIComponents/Input";
 
 function ExpenseList() {
     const [EditID, SetEditID] = useState(null)
@@ -12,8 +14,8 @@ function ExpenseList() {
     const getDiscription = useRef()
     const getDate = useRef()
     const Dispatch = useDispatch()
-    const SendingData = useSelector(state => state.ExpenseReducer.Loader)
-    const Expensedata = useSelector(state => state.ExpenseReducer.Expense)
+    const isSendingData = useSelector(state => state.ExpenseReducer.Loader)
+    const Expensedata = useSelector(state => state.ExpenseReducer.MonthWiseData)
     const TotalAmount = useSelector(state => state.ExpenseReducer.TotalAmt)
 
 
@@ -41,19 +43,23 @@ function ExpenseList() {
                 email = email.replace(/[.]/g, "")
                 email = email.replace(/[@]/g, "")
             }
-            const Response = await axios.get(`https://expensetracker-data-default-rtdb.firebaseio.com/${email}.json`)
+            try {
+                const Response = await axios.get(`https://mailboxauth-default-rtdb.firebaseio.com/${email}.json`)
 
-            const Data = []
-            for (const key in Response.data) {
-                Data.push({
-                    id: key,
-                    Amount: Response.data[key].Amount,
-                    Discription: Response.data[key].Discription,
-                    Category: Response.data[key].Category,
-                    Date: Response.data[key].Date
-                })
+                const Data = []
+                for (const key in Response.data) {
+                    Data.push({
+                        id: key,
+                        Amount: Response.data[key].Amount,
+                        Discription: Response.data[key].Discription,
+                        Category: Response.data[key].Category,
+                        Date: Response.data[key].Date
+                    })
+                }
+                Dispatch(ExpenseData.UpdateFunction(Data))
+            } catch (err) {
+                console.log(err)
             }
-            Dispatch(ExpenseData.UpdateFunction(Data))
         }
         FetchData()
     }, [Dispatch])
@@ -67,7 +73,7 @@ function ExpenseList() {
             Date: getDate.current.value
         }
 
-        const Respons = await axios.put(`https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData/${id}.json`, EditedData)
+        const Respons = await axios.put(`https://mailboxauth-default-rtdb.firebaseio.com//ExpenseData/${id}.json`, EditedData)
         if (Respons.status === 200) {
             const UpdatedExpense = Expensedata.map((item) => item.id === id ? { ...Respons.data, id: id } : item)
             Dispatch(ExpenseData.UpdateFunction(UpdatedExpense))
@@ -78,15 +84,23 @@ function ExpenseList() {
 
     const DeleteFunction = async (id) => {
 
-        const Response = await axios.delete(`https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData/${id}.json`)
+        const Response = await axios.delete(`https://mailboxauth-default-rtdb.firebaseio.com/ExpenseData/${id}.json`)
         if (Response.status === 200) {
             const UpdateExpense = Expensedata.filter(item => id !== item.id)
             Dispatch(ExpenseData.DeleteFunction(UpdateExpense))
         }
     }
 
+    // const MonthWiseData = Expensedata.filter(item => {
+    //     const month = new Date(item.Date).toLocaleDateString('default', { month: 'long' })
+    //     return month === selectedMonth
+    // })
+
+
+
     return (
         <div className={Style.ListContainer}>
+            <Months />
             <table>
                 <thead>
                     <tr className={Style.TableHeading}>
@@ -101,23 +115,23 @@ function ExpenseList() {
                     {Expensedata.map((item) => {
                         return (
                             <tr key={item.id} className={Style.tableList}>
-                                {EditID === item.id ? <td><input type="number" ref={getAmount} ></input></td> : <td>{item.Amount}</td>}
-                                {EditID === item.id ? <td><input type="text" ref={getDiscription}></input></td> : <td>{item.Discription}</td>}
-                                {EditID === item.id ? <td><input type="text" ref={getCategory}></input></td> : <td>{item.Category}</td>}
-                                {EditID === item.id ? <td><input type="date" ref={getDate} defaultValue={item.Date}></input></td> : <td>{item.Date}</td>}
+                                {EditID === item.id ? <td><Input type={"number"}/></td> : <td>&#x20b9; {item.Amount}</td>}
+                                {EditID === item.id ? <td><Input type={"text"}/></td> : <td>{item.Discription}</td>}
+                                {EditID === item.id ? <td><Input type={"text"}/></td> : <td>{item.Category}</td>}
+                                {EditID === item.id ? <td><Input type={"date"}/></td> : <td>{item.Date}</td>}
                                 <td>{EditID === item.id ?
                                     <button onClick={() => updateFunction(item.id)} className={Style.UpdateBtn}>&#10003;</button>
                                     :
                                     <button onClick={() => EditFunction(item.id)} className={Style.EditBtn}>edit</button>}
                                     <button onClick={() => DeleteFunction(item.id)} className={Style.RemoveBtn}>X</button></td>
                             </tr>)
+
                     })
                     }
                 </tbody>
             </table>
-            {SendingData && <div className={Style.LoadingTex}><h3>Adding Expense</h3><Loader /></div>}
+            {isSendingData && <Modal />}
             <div className={Style.TotalContainer}><span>TotalExpense :</span><span>{TotalAmount} Rs</span></div>
-
         </div>
     )
 }

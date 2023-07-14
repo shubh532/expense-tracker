@@ -1,0 +1,6 @@
+.SelectMonths{
+   background-color:  var(--Background);
+   padding: 0.2rem;
+   color: aliceblue;
+   font-weight: bold;
+}

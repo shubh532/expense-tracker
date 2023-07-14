@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState={Expense:[],Loader:false,TotalAmt:0}
+const Month=new Date().toLocaleString('default', { month: 'long' })
+const initialState={Expense:[],Loader:false,TotalAmt:0,Month:Month, MonthWiseData:[]}
 
 const ExpenseSclice=createSlice({
     name:"ExpenseManger",
@@ -20,6 +20,25 @@ const ExpenseSclice=createSlice({
         },
         TotalAmt(state,action){
             state.TotalAmt=action.payload
+        },
+        setMonthHandler(state,action){
+            state.Month=action.payload
+        },
+        GetMonthWiseData(state,action){
+            
+            if(action.payload==="All"){
+                console.log(action,"form st")
+                state.MonthWiseData=state.Expense
+            }else{
+                console.log("in Else COndition")
+                state.MonthWiseData=state.Expense.filter(item=>{
+                    const month = new Date(item.Date).toLocaleDateString('default', { month: 'long' })
+                    return month===action.payload
+                    
+                })
+               
+
+            }
         }
     }
 })

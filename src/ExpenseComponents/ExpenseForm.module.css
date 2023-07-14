@@ -11,6 +11,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .InputContainer {
@@ -20,10 +21,13 @@
 
 .InputContainer input {
     width: 17rem;
-    padding: 3px;
+    padding: 5px;
     font-size: medium;
     border-radius: 5px;
     border: 2px solid rgb(62, 62, 62);
+}
+.InputContainer input:active{
+    border: 2px solid red;
 }
 
 .InputContainer label {

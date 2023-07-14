@@ -7,6 +7,7 @@ function ExpenseCtxPrivider(props) {
     const [Loader, SetLoader] = useState(false)
 
     useEffect(() => {
+        console.log("Working")
         async function FetchData() {
             const Response = await axios.get("https://expensetracker-data-default-rtdb.firebaseio.com/ExpenseData.json")
 

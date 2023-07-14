@@ -16,14 +16,14 @@ function ExpenseForm() {
 
 
     async function AddExpenseData(data) {
+        Dispatch(ExpenseData.Loader(true))
         let email = localStorage.getItem("Email")
         if (email) {
             email = email.replace(/[.]/g, "")
             email = email.replace(/[@]/g, "")
         }
-        Dispatch(ExpenseData.Loader(true))
         try {
-            const Response = await axios.post(`https://expensetracker-data-default-rtdb.firebaseio.com/${email}.json`, { ...data })
+            const Response = await axios.post(`https://mailboxauth-default-rtdb.firebaseio.com/${email}.json`, { ...data })
             if (Response.status === 200) {
                 Dispatch(ExpenseData.AddExpenseFunction({ ...data, id: Response.data.name }))
                 Dispatch(ExpenseData.Loader(false))
