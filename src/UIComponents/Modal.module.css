@@ -1,8 +1,7 @@
 .BackDrop{
     height: 100%;
     width: 100%;
-    border: 2px solid red;
-    background-color: rgb(40, 39, 39);
+    background-color: rgb(44, 44, 44);
     opacity: 0.75;
     position: absolute;
 }

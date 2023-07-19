@@ -3,6 +3,7 @@ import Style from "./ExpenseForm.module.css"
 import axios from "axios";
 import { ExpenseData } from "../ReduxStore/ExpenseStore";
 import { useDispatch } from "react-redux";
+import { getDateInString,disableDatesAfterToday } from "../HelperFunc/getDates";
 
 function ExpenseForm() {
     const getAmount = useRef()
@@ -37,11 +38,12 @@ function ExpenseForm() {
 
     function AddExpenseHandler(e) {
         e.preventDefault()
+        const date=getDateInString(getDate.current.value)
         const data = {
             Amount: getAmount.current.value,
             Discription: getDiscription.current.value,
             Category: getCategory.current.value,
-            Date: getDate.current.value
+            Date:date
         }
         AddExpenseData(data)
     }
@@ -59,7 +61,7 @@ function ExpenseForm() {
                 </div>
                 <div className={Style.InputContainer}>
                     <label>Date</label>
-                    <input type="date" defaultValue={`${currentDate}`} min="2018-07-22" ref={getDate}></input>
+                    <input type="date" defaultValue={`${currentDate}`} min="2018-07-22" max={disableDatesAfterToday()} ref={getDate}></input>
                 </div>
                 <div className={Style.InputContainer}>
                     <label>Category</label>
