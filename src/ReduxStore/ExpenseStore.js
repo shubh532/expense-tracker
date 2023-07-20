@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import DeleteFunction from "./ReduxHelpers/DeleteExpenseData";
 import FetchData from "./ReduxHelpers/FetchData";
+import UpdateExpenseHandler from "./ReduxHelpers/UpdateExpense";
 import { getNumericYearAndMonth } from "../HelperFunc/getDates";
 
-const initialState = { Expense: [], Loader: false, TotalAmt: 0, MonthWiseData: [] }
+const initialState = { Expense: [], Loader: false, MonthWiseData: [],EditID:null }
 
 const ExpenseSclice = createSlice({
     name: "ExpenseManger",
@@ -12,17 +13,11 @@ const ExpenseSclice = createSlice({
         AddExpenseFunction(state, action) {
             state.Expense.push(action.payload)
         },
-        DeleteFunction(state, action) {
-            state.Expense = action.payload
-        },
-        UpdateFunction(state, action) {
-            state.Expense = action.payload
+        EditingHandler(state,action){
+            state.EditID=action.payload
         },
         Loader(state, action) {
             state.Loader = action.payload
-        },
-        TotalAmt(state, action) {
-            state.TotalAmt = action.payload
         },
         GetMonthWiseData(state, action) {
             if (action.payload === "") {
@@ -59,6 +54,20 @@ const ExpenseSclice = createSlice({
         builder.addCase(DeleteExpenseFunction.rejected, (state) => {
             state.Loader = false
         })
+        builder.addCase(UpdateExpense.pending, (state) => {
+            console.log("up pen")
+            state.Loader = true
+        })
+        builder.addCase(UpdateExpense.fulfilled, (state, action) => {
+            state.Loader = false
+            const UpdatedData=action.payload
+            const Data=state.Expense.map((item)=>item.id===UpdatedData.id?{...UpdatedData}:item)
+            state.Expense=Data
+            state.EditID=null
+        })
+        builder.addCase(UpdateExpense.rejected, (state) => {
+            state.Loader = false
+        })
     }
 })
 
@@ -67,5 +76,6 @@ export default ExpenseSclice.reducer
 
 export const fetchExpenseData = createAsyncThunk("expenseData", FetchData)
 
+export const UpdateExpense =createAsyncThunk("updateExpese",UpdateExpenseHandler)
 
 export const DeleteExpenseFunction = createAsyncThunk("DeleteExpense", DeleteFunction)
