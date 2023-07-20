@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import DeleteFunction from "./ReduxHelpers/DeleteExpenseData";
+import FetchData from "./ReduxHelpers/FetchData";
 import { getNumericYearAndMonth } from "../HelperFunc/getDates";
 
 const initialState = { Expense: [], Loader: false, TotalAmt: 0, MonthWiseData: [] }
@@ -31,7 +32,7 @@ const ExpenseSclice = createSlice({
                     const month = getNumericYearAndMonth(item.Date)
                     return month === action.payload
                 })
-                
+
             }
         }
     },
@@ -45,7 +46,18 @@ const ExpenseSclice = createSlice({
         })
         builder.addCase(fetchExpenseData.rejected, (state) => {
             state.Loader = false
-            state.Expense = []
+        })
+        builder.addCase(DeleteExpenseFunction.pending, (state) => {
+            state.Loader = true
+        })
+        builder.addCase(DeleteExpenseFunction.fulfilled, (state, action) => {
+            state.Loader = false
+            const id = action.payload
+            const Data = state.Expense.filter(item => item.id !== id)
+            state.Expense = Data
+        })
+        builder.addCase(DeleteExpenseFunction.rejected, (state) => {
+            state.Loader = false
         })
     }
 })
@@ -53,22 +65,7 @@ const ExpenseSclice = createSlice({
 export const ExpenseData = ExpenseSclice.actions
 export default ExpenseSclice.reducer
 
-export const fetchExpenseData = createAsyncThunk("expenseData", async () => {
-    let email = localStorage.getItem("Email")
-    if (email) {
-        email = email.replace(/[.]/g, "")
-        email = email.replace(/[@]/g, "")
-    }
-    const Response = await axios.get(`https://mailboxauth-default-rtdb.firebaseio.com/${email}.json`)
-    const Data = []
-    for (const key in Response.data) {
-        Data.push({
-            id: key,
-            Amount: Response.data[key].Amount,
-            Discription: Response.data[key].Discription,
-            Category: Response.data[key].Category,
-            Date: Response.data[key].Date
-        })
-    }
-    return Data
-})
+export const fetchExpenseData = createAsyncThunk("expenseData", FetchData)
+
+
+export const DeleteExpenseFunction = createAsyncThunk("DeleteExpense", DeleteFunction)

@@ -6,7 +6,7 @@ import Style from "./expenseList.module.css"
 import Months from "./Months";
 import Modal from "../UIComponents/Modal";
 import Input from "../UIComponents/Input";
-import { fetchExpenseData } from "../ReduxStore/ExpenseStore";
+import { fetchExpenseData, DeleteExpenseFunction } from "../ReduxStore/ExpenseStore";
 
 function ExpenseList() {
     const [EditID, SetEditID] = useState(null)
@@ -15,7 +15,8 @@ function ExpenseList() {
     const getDiscription = useRef()
     const getDate = useRef()
     const Dispatch = useDispatch()
-    const {Loader,MonthWiseData, TotalAmt } = useSelector(state => state.ExpenseReducer)
+    const { Loader, MonthWiseData, TotalAmt } = useSelector(state => state.ExpenseReducer)
+    const email = useSelector(state => state.Authecation.email)
     useEffect(() => {
         const TotalAmt = () => {
             let TotalAmount = 0
@@ -27,16 +28,13 @@ function ExpenseList() {
         TotalAmt()
     }, [MonthWiseData, Dispatch])
 
-
-
-
     const EditFunction = (id) => {
         SetEditID(id)
     }
 
     useEffect(() => {
-        Dispatch(fetchExpenseData())
-    }, [Dispatch])
+        Dispatch(fetchExpenseData(email))
+    }, [Dispatch, email])
 
 
     const updateFunction = async (id) => {
@@ -56,17 +54,14 @@ function ExpenseList() {
 
     }
 
-    const DeleteFunction = async (id) => {
-        const Response = await axios.delete(`https://mailboxauth-default-rtdb.firebaseio.com/ExpenseData/${id}.json`)
-        if (Response.status === 200) {
-            const UpdateExpense = MonthWiseData.filter(item => id !== item.id)
-            Dispatch(ExpenseData.DeleteFunction(UpdateExpense))
-        }
+    const deleteFunction = (id) => {
+        const emailId = { id: id, email: email }
+        Dispatch(DeleteExpenseFunction(emailId))
     }
 
     return (
         <div className={Style.ListContainer}>
-            {!Loader&&<Months />}
+            {!Loader && <Months />}
             <table>
                 <thead>
                     <tr className={Style.TableHeading}>
@@ -89,7 +84,7 @@ function ExpenseList() {
                                     <button onClick={() => updateFunction(item.id)} className={Style.UpdateBtn}>&#10003;</button>
                                     :
                                     <button onClick={() => EditFunction(item.id)} className={Style.EditBtn}>edit</button>}
-                                    <button onClick={() => DeleteFunction(item.id)} className={Style.RemoveBtn}>X</button></td>
+                                    <button onClick={() => deleteFunction(item.id)} className={Style.RemoveBtn}>X</button></td>
                             </tr>)
 
                     })

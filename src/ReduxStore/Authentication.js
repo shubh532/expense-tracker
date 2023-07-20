@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const email=localStorage.getItem("Email")
+let email = localStorage.getItem("Email")
+if (email) {
+    email = email.replace(/[.]/g, "")
+    email = email.replace(/[@]/g, "")
+}
 const id=localStorage.getItem("TokenID")
 const initialAuthState = { IsAuthenticate:id ,email:email, isLogin:localStorage.getItem("TokenID")?true:false}
 
