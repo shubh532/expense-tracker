@@ -3,12 +3,12 @@
     flex-direction: column;
     justify-content: space-between;
     border: 2px solid rgb(154, 153, 153);
-    width: 40vw;
-    margin: 1.5rem 0.8rem;
     padding: 0px;
     overflow: scroll;
-    height: 73vh;
     position: relative;
+    width: 100%;
+    margin: 0rem 0.8rem;
+    height: 100%;
 }
 
 .ListContainer table {
