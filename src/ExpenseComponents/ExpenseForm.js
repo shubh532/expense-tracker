@@ -3,7 +3,7 @@ import Style from "./ExpenseForm.module.css"
 import axios from "axios";
 import { ExpenseData } from "../ReduxStore/ExpenseStore";
 import { useDispatch } from "react-redux";
-import { getDateInString,disableDatesAfterToday } from "../HelperFunc/getDates";
+import { disableDatesAfterToday, getDateInString } from "../HelperFunc/getDates";
 
 function ExpenseForm() {
     const getAmount = useRef()
@@ -26,7 +26,7 @@ function ExpenseForm() {
         try {
             const Response = await axios.post(`https://mailboxauth-default-rtdb.firebaseio.com/${email}.json`, { ...data })
             if (Response.status === 200) {
-                Dispatch(ExpenseData.AddExpenseFunction({ ...data, id: Response.data.name }))
+                Dispatch(ExpenseData.AddExpenseFunction({ ...data, Date:getDateInString(data.Date), id: Response.data.name }))
                 Dispatch(ExpenseData.Loader(false))
             }
         } catch (err) {
@@ -38,12 +38,11 @@ function ExpenseForm() {
 
     function AddExpenseHandler(e) {
         e.preventDefault()
-        const date=getDateInString(getDate.current.value)
         const data = {
             Amount: getAmount.current.value,
             Discription: getDiscription.current.value,
             Category: getCategory.current.value,
-            Date:date
+            Date: getDate.current.value
         }
         AddExpenseData(data)
     }

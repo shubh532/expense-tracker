@@ -2,19 +2,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import DeleteFunction from "./ReduxHelpers/DeleteExpenseData";
 import FetchData from "./ReduxHelpers/FetchData";
 import UpdateExpenseHandler from "./ReduxHelpers/UpdateExpense";
-import { getNumericYearAndMonth } from "../HelperFunc/getDates";
+import { getDateInString, getNumericYearAndMonth, getWeekDates } from "../HelperFunc/getDates";
 
-const initialState = { Expense: [], Loader: false, MonthWiseData: [],EditID:null }
+const initialState = { Expense: [], Loader: false, MonthWiseData: [], EditID: null, ChartData: [] }
 
 const ExpenseSclice = createSlice({
     name: "ExpenseManger",
     initialState: initialState,
     reducers: {
         AddExpenseFunction(state, action) {
-            state.Expense.push(action.payload)
+            state.Expense.unshift(action.payload)
         },
-        EditingHandler(state,action){
-            state.EditID=action.payload
+        EditingHandler(state, action) {
+            state.EditID = action.payload
         },
         Loader(state, action) {
             state.Loader = action.payload
@@ -27,8 +27,18 @@ const ExpenseSclice = createSlice({
                     const month = getNumericYearAndMonth(item.Date)
                     return month === action.payload
                 })
-
             }
+        },
+        getWeekChartData(state) {
+            const week = getWeekDates()
+            state.ChartData = week.map(date => {
+                const filterbyDate = state.Expense.filter(item => item.Date === getDateInString(date))
+                const SameDateSum = filterbyDate.reduce((sum, data) => sum + parseInt(data.Amount), 0)
+                return {
+                    Date: date,
+                    amount: SameDateSum
+                }
+            })
         }
     },
     extraReducers: (builder) => {
@@ -36,8 +46,8 @@ const ExpenseSclice = createSlice({
             state.Loader = true
         })
         builder.addCase(fetchExpenseData.fulfilled, (state, action) => {
-            state.Loader = false
             state.Expense = action.payload
+            state.Loader = false
         })
         builder.addCase(fetchExpenseData.rejected, (state) => {
             state.Loader = false
@@ -46,24 +56,23 @@ const ExpenseSclice = createSlice({
             state.Loader = true
         })
         builder.addCase(DeleteExpenseFunction.fulfilled, (state, action) => {
-            state.Loader = false
             const id = action.payload
             const Data = state.Expense.filter(item => item.id !== id)
             state.Expense = Data
+            state.Loader = false
         })
         builder.addCase(DeleteExpenseFunction.rejected, (state) => {
             state.Loader = false
         })
         builder.addCase(UpdateExpense.pending, (state) => {
-            console.log("up pen")
             state.Loader = true
         })
         builder.addCase(UpdateExpense.fulfilled, (state, action) => {
+            const UpdatedData = action.payload
+            const Data = state.Expense.map((item) => item.id === UpdatedData.id ? { ...UpdatedData } : item)
+            state.Expense = Data
+            state.EditID = null
             state.Loader = false
-            const UpdatedData=action.payload
-            const Data=state.Expense.map((item)=>item.id===UpdatedData.id?{...UpdatedData}:item)
-            state.Expense=Data
-            state.EditID=null
         })
         builder.addCase(UpdateExpense.rejected, (state) => {
             state.Loader = false
@@ -76,6 +85,6 @@ export default ExpenseSclice.reducer
 
 export const fetchExpenseData = createAsyncThunk("expenseData", FetchData)
 
-export const UpdateExpense =createAsyncThunk("updateExpese",UpdateExpenseHandler)
+export const UpdateExpense = createAsyncThunk("updateExpese", UpdateExpenseHandler)
 
 export const DeleteExpenseFunction = createAsyncThunk("DeleteExpense", DeleteFunction)

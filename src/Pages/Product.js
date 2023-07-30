@@ -1,14 +1,14 @@
-import React,{ useEffect } from "react"
-import { useSelector,useDispatch } from "react-redux";
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux";
 import ExpenseForm from "../ExpenseComponents/ExpenseForm";
 import ExpenseList from "../ExpenseComponents/ExpenseList";
 import Container from "../UIComponents/Container";
-import Chart from "../UIComponents/Chart";
+import ExpenseChart from "../ExpenseComponents/ExpenseChart";
 import { fetchExpenseData } from "../ReduxStore/ExpenseStore";
 
 function Product() {
     const email = useSelector(state => state.Authecation.email)
-    const Dispatch=useDispatch()
+    const Dispatch = useDispatch()
 
     useEffect(() => {
         Dispatch(fetchExpenseData(email))
@@ -19,7 +19,7 @@ function Product() {
             <ExpenseForm />
             <Container>
                 <ExpenseList />
-                <Chart />
+                <ExpenseChart />
             </Container>
         </React.Fragment>
     )

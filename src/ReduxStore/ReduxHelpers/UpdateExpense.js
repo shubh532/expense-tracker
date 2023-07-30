@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getDateInString } from "../../HelperFunc/getDates";
 
 async function UpdateExpenseHandler(data){
     const email=data.email
@@ -12,7 +13,7 @@ async function UpdateExpenseHandler(data){
     console.log(Data)
     const Response=await axios.put(`https://mailboxauth-default-rtdb.firebaseio.com/${email}/${id}.json`,Data)
     console.log(Response)
-    return {...Response.data,id:id}
+    return {...Response.data ,Date:getDateInString(Response.data.Date),id:id}
 }
 
 
