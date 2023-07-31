@@ -8,7 +8,7 @@ function Chart() {
   const Dispatch = useDispatch()
 
   useEffect(() => {
-    Dispatch(ExpenseData.getWeekChartData())
+    Dispatch(ExpenseData.getWeekChartData({day:7,title:"7 Days Data Track"}))
   }, [Dispatch])
 
   return (
@@ -23,9 +23,9 @@ function Chart() {
         </defs>
         <XAxis dataKey="Date" />
         <YAxis />
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid />
         <Tooltip />
-        <Area type="monotone" dataKey="amount" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+        <Area type="monotone" dataKey="amount" stroke="#283B5D" fillOpacity={1} fill="url(#colorUv)" />
       </AreaChart>
     </ResponsiveContainer>
   )

@@ -36,22 +36,14 @@ export function disableDatesAfterToday() {
 }
 
 
-export function getWeekDates() {
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
+export function getWeekDates(day) {
   const currentDate = new Date();
   const lastSevenDays = [];
 
-
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < day; i++) {
     const dateOfLastSevenDays = new Date(currentDate);
     dateOfLastSevenDays.setDate(currentDate.getDate() - i);
-    lastSevenDays.push(formatDate(dateOfLastSevenDays));
+    lastSevenDays.push(getDateInString(dateOfLastSevenDays).slice(0,6));
   }
   return lastSevenDays
 }

@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import DeleteFunction from "./ReduxHelpers/DeleteExpenseData";
 import FetchData from "./ReduxHelpers/FetchData";
 import UpdateExpenseHandler from "./ReduxHelpers/UpdateExpense";
-import { getDateInString, getNumericYearAndMonth, getWeekDates } from "../HelperFunc/getDates";
+import { getNumericYearAndMonth, getWeekDates } from "../HelperFunc/getDates";
 
-const initialState = { Expense: [], Loader: false, MonthWiseData: [], EditID: null, ChartData: [] }
+const initialState = { Expense: [], Loader: false, MonthWiseData: [], EditID: null, ChartData: [],ChartTitle:"Not Define" }
 
 const ExpenseSclice = createSlice({
     name: "ExpenseManger",
@@ -29,10 +29,12 @@ const ExpenseSclice = createSlice({
                 })
             }
         },
-        getWeekChartData(state) {
-            const week = getWeekDates()
+        getWeekChartData(state, action) {
+            const Days=action.payload.day
+            state.ChartTitle= action.payload.title
+            const week = getWeekDates(Days)
             state.ChartData = week.map(date => {
-                const filterbyDate = state.Expense.filter(item => item.Date === getDateInString(date))
+                const filterbyDate = state.Expense.filter(item => item.Date.slice(0, 6) === date)
                 const SameDateSum = filterbyDate.reduce((sum, data) => sum + parseInt(data.Amount), 0)
                 return {
                     Date: date,

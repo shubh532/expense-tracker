@@ -7,7 +7,7 @@ import Chart from '../UIComponents/Chart';
 
 
 function ExpenseChart() {
-    const { Loader } = useSelector(state => state.ExpenseReducer)
+    const { Loader, ChartTitle } = useSelector(state => state.ExpenseReducer)
     return (
         <div className={Style.chartContainer}>
             {!Loader &&
@@ -16,7 +16,7 @@ function ExpenseChart() {
                         <Months />
                         <Button />
                     </div>
-                    <h4>week Data Track</h4>
+                    <h4>{ChartTitle}</h4>
                     <div className={Style.ResponsiveContainer}>
                         <Chart />
                     </div>
