@@ -26,6 +26,7 @@ function ExpenseForm() {
         try {
             const Response = await axios.post(`https://mailboxauth-default-rtdb.firebaseio.com/${email}.json`, { ...data })
             if (Response.status === 200) {
+                console.log(Response)
                 Dispatch(ExpenseData.AddExpenseFunction({ ...data, Date:getDateInString(data.Date), id: Response.data.name }))
                 Dispatch(ExpenseData.Loader(false))
             }

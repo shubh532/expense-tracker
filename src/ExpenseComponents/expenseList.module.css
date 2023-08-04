@@ -6,7 +6,7 @@
     padding: 0px;
     overflow: scroll;
     position: relative;
-    width: 100%;
+    width: 30%;
     margin: 0rem 0.8rem;
     height: 100%;
 }
@@ -137,15 +137,16 @@ tbody td input {
 }
 
 ::-webkit-scrollbar{
-    width: 0.5rem;
-    height: 0.5rem;
+    /* width: 0.5rem;
+    height: 0.5rem; */
+    display: none;
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
     background-color: var(--Full-Background)
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 15px;
     background-color: var(--Background)
-}
+} */

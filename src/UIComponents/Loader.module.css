@@ -1,3 +1,15 @@
+.LoaderContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 8;
+  color: aliceblue;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
 .ldspinner {
   color: official;
   display: inline-block;

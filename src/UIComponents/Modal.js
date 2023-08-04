@@ -1,10 +1,23 @@
-import Loader from "../UIComponents/Loader"
+import { Fragment } from "react"
+import  ReactDOM  from "react-dom"
 import Style from "./Modal.module.css"
 
-function Modal(){
-    return(<div className={Style.BackDrop}>
-        <div className={Style.ModalOverLay}><h2>Adding Data</h2><Loader/></div>
-    </div>)
+function BackDrop(props) {
+    return (<div className={Style.BackDrop}></div>)
 }
+function ModalOverLay(props) {
+    return (
+        <div>{props.children}</div>)
+}
+const ParentElement = document.getElementById("OverLay")
+console.log(ParentElement,"ParentElement")
 
-export default Modal
+const Modal = (props) => {
+    return (
+        <Fragment>
+            {ReactDOM.createPortal(<BackDrop />, ParentElement)}
+            {ReactDOM.createPortal(<ModalOverLay>{props.children}</ModalOverLay>, ParentElement)}
+        </Fragment>
+    )
+}
+export default Modal;

@@ -1,6 +1,6 @@
 .chartContainer{
     height: 100%;
-    width: 100%;
+    width: 50%;
     margin: 0rem 0.8rem;
     display: flex;
     flex-direction: column;

@@ -1,24 +1,21 @@
-import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux";
+import React from "react"
 import ExpenseForm from "../ExpenseComponents/ExpenseForm";
 import ExpenseList from "../ExpenseComponents/ExpenseList";
 import Container from "../UIComponents/Container";
 import ExpenseChart from "../ExpenseComponents/ExpenseChart";
-import { fetchExpenseData } from "../ReduxStore/ExpenseStore";
+import ExDescription from "../ExpenseComponents/ExpenseDescrp";
+import { useSelector } from "react-redux";
+
 
 function Product() {
-    const email = useSelector(state => state.Authecation.email)
-    const Dispatch = useDispatch()
-
-    useEffect(() => {
-        Dispatch(fetchExpenseData(email))
-    }, [Dispatch, email])
-
+    const ShowExpDetails=useSelector(state=>state.ExpenseReducer.ShowDetails)
+    console.log(ShowExpDetails,"from product")
     return (
         <React.Fragment>
             <ExpenseForm />
             <Container>
                 <ExpenseList />
+                {ShowExpDetails&&<ExDescription/>}
                 <ExpenseChart />
             </Container>
         </React.Fragment>

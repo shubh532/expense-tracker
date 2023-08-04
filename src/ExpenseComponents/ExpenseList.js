@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import Style from "./expenseList.module.css"
-import Modal from "../UIComponents/Modal";
 import ExpenseTable from "./ExpenseTable";
+import Loading from "../UIComponents/Loader";
+import Modal from "../UIComponents/Modal";
 
 function ExpenseList() {
 
@@ -11,7 +12,7 @@ function ExpenseList() {
     return (
         <div className={Style.ListContainer}>
             <ExpenseTable />
-            {Loader && <Modal />}
+            {Loader && <Modal> <Loading /></Modal>}
             <div className={Style.TotalContainer}><span>TotalExpense :</span><span>{TotalAmount} Rs</span></div>
         </div>
     )

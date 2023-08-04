@@ -4,7 +4,7 @@ import FetchData from "./ReduxHelpers/FetchData";
 import UpdateExpenseHandler from "./ReduxHelpers/UpdateExpense";
 import { getNumericYearAndMonth, getWeekDates } from "../HelperFunc/getDates";
 
-const initialState = { Expense: [], Loader: false, MonthWiseData: [], EditID: null, ChartData: [],ChartTitle:"Not Define" }
+const initialState = { Expense: [], Loader: false, MonthWiseData: [], EditID: null, ChartData: [], ChartTitle: "Not Define", ShowDetails:false, ExpDetails:[]}
 
 const ExpenseSclice = createSlice({
     name: "ExpenseManger",
@@ -30,8 +30,8 @@ const ExpenseSclice = createSlice({
             }
         },
         getWeekChartData(state, action) {
-            const Days=action.payload.day
-            state.ChartTitle= action.payload.title
+            const Days = action.payload.day
+            state.ChartTitle = action.payload.title
             const week = getWeekDates(Days)
             state.ChartData = week.map(date => {
                 const filterbyDate = state.Expense.filter(item => item.Date.slice(0, 6) === date)
@@ -41,6 +41,14 @@ const ExpenseSclice = createSlice({
                     amount: SameDateSum
                 }
             })
+        },
+        ShowExpenseDetails(state) {
+            state.ShowDetails=!state.ShowDetails
+            console.log("ShowExpenseDetails form store")
+        },
+        getExpenseDetails(state, action){
+            const id = action.payload
+            state.ExpDetails=state.MonthWiseData.filter(item=>item.id===id)
         }
     },
     extraReducers: (builder) => {
