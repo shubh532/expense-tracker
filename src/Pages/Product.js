@@ -3,7 +3,7 @@ import ExpenseForm from "../ExpenseComponents/ExpenseForm";
 import ExpenseList from "../ExpenseComponents/ExpenseList";
 import Container from "../UIComponents/Container";
 import ExpenseChart from "../ExpenseComponents/ExpenseChart";
-import ExDescription from "../ExpenseComponents/ExpenseDescrp";
+import ExpDetails from "../ExpenseComponents/ExpDetails";
 import { useSelector } from "react-redux";
 
 
@@ -15,7 +15,7 @@ function Product() {
             <ExpenseForm />
             <Container>
                 <ExpenseList />
-                {ShowExpDetails&&<ExDescription/>}
+                {ShowExpDetails&&<ExpDetails/>}
                 <ExpenseChart />
             </Container>
         </React.Fragment>

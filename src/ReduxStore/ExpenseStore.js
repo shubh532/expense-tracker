@@ -4,7 +4,7 @@ import FetchData from "./ReduxHelpers/FetchData";
 import UpdateExpenseHandler from "./ReduxHelpers/UpdateExpense";
 import { getNumericYearAndMonth, getWeekDates } from "../HelperFunc/getDates";
 
-const initialState = { Expense: [], Loader: false, MonthWiseData: [], EditID: null, ChartData: [], ChartTitle: "Not Define", ShowDetails:false, ExpDetails:[]}
+const initialState = { Expense: [], Loader: false, MonthWiseData: [], Editing: {Edit:false, id:null}, ChartData: [], ChartTitle: "Not Define", ShowDetails:false, ExpDetails:[]}
 
 const ExpenseSclice = createSlice({
     name: "ExpenseManger",
@@ -13,8 +13,9 @@ const ExpenseSclice = createSlice({
         AddExpenseFunction(state, action) {
             state.Expense.unshift(action.payload)
         },
-        EditingHandler(state, action) {
-            state.EditID = action.payload
+        EditingHandler(state,action) {
+            state.Editing.Edit = !state.Editing.Edit
+            state.Editing.id = action.payload
         },
         Loader(state, action) {
             state.Loader = action.payload
@@ -69,6 +70,7 @@ const ExpenseSclice = createSlice({
             const id = action.payload
             const Data = state.Expense.filter(item => item.id !== id)
             state.Expense = Data
+            state.ShowDetails=false
             state.Loader = false
         })
         builder.addCase(DeleteExpenseFunction.rejected, (state) => {
@@ -81,8 +83,9 @@ const ExpenseSclice = createSlice({
             const UpdatedData = action.payload
             const Data = state.Expense.map((item) => item.id === UpdatedData.id ? { ...UpdatedData } : item)
             state.Expense = Data
-            state.EditID = null
             state.Loader = false
+            state.Editing.Edit=false
+            state.ShowDetails=false
         })
         builder.addCase(UpdateExpense.rejected, (state) => {
             state.Loader = false

@@ -1,0 +1,35 @@
+.Heading {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--SecondaryClr);
+}
+
+.dateAmtContainer {
+    background-color: var(--Background);
+    color: var(--Color);
+    padding: 10px 15px;
+    font-weight: bold;
+    margin: 0.5rem 0rem;
+}
+
+.PlaceContainer {
+    padding: 10px 15px;
+    font-weight: bold;
+    color: var(--SecondaryClr);
+}
+
+.descContainer {
+    font-weight: 600;
+    height: 50%;
+    margin: 0.5rem 0rem;
+    padding: 10px 15px;
+    color: var(--SecondaryClr);
+}
+
+.PlaceContainer,
+.dateAmtContainer,
+.btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

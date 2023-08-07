@@ -20,9 +20,51 @@
     box-shadow: 0px 0px 2px 1px black;
 }
 
-.BtnContainer button:focus,.BtnContainer button:active {
-    /* background-color: rgb(75, 107, 161); */
+.BtnContainer button:focus,
+.BtnContainer button:active {
     background-color: white;
     border: 2px solid var(--Background);
     color: rgb(0, 0, 0);
+}
+
+.GreenButton {
+    background-color: rgb(118, 185, 163);
+}
+
+.RedButton {
+    background-color: rgb(255, 157, 157);
+}
+
+.BlueButton {
+    background-color: rgb(91, 119, 175);
+}
+
+.GreenButton,
+.RedButton,
+.BlueButton {
+    border: none;
+    padding: 7px 10px;
+    color: aliceblue;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 0px 10px;
+    transition: ease-in-out 0.3s;
+}
+
+.GreenButton:hover {
+    background-color: rgb(0, 146, 97);
+    box-shadow: 0px 0px 4px 1px rgb(47, 47, 47);
+}
+
+.RedButton:hover {
+    background-color: rgb(252, 48, 48);
+    box-shadow: 0px 0px 4px 1px rgb(47, 47, 47);
+    ;
+}
+
+.BlueButton:hover {
+    background-color: rgb(1, 58, 173);
+    box-shadow: 0px 0px 2px 1px rgb(47, 47, 47);
+    ;
 }
