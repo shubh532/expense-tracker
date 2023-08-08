@@ -1,25 +1,22 @@
 .chartContainer{
     height: 100%;
-    width: 50%;
-    margin: 0rem 0.8rem;
+    width: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 0px 5px 1px rgb(35, 35, 35);
-    padding: 1rem;
     border-radius: 8px;
 }
 .ResponsiveContainer{
     width: 100%;
     height: 80%;
-    /* border: 2px solid red; */
     padding: 1rem;
 }
 .ChartHeader{
     display: flex;
     flex-direction: row;
-    /* border: 2px solid blue; */
     align-items: center;
     width: 100%;
     justify-content:space-between;

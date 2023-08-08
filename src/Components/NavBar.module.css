@@ -8,7 +8,7 @@
     background-color: var(--Background);
     z-index: 5;
     margin: 0px;
-    ;
+    height: 100%;
 }
 
 .HeadContaner h1 {

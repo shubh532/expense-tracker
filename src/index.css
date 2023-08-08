@@ -11,7 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+#root{
+  background-color: var(--Full-Background);
+  height: 715px;
+  width: 100vw;
+}
 .Dark-theme{
   --Background:#262e3a;
   --Full-Background:rgb(8 12 21);

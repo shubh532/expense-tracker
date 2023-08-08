@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Style from "./ExpenseForm.module.css"
 import axios from "axios";
 import { ExpenseData } from "../ReduxStore/ExpenseStore";
+import { GreenButton } from "../UIComponents/btns";
 import { useDispatch } from "react-redux";
 import { disableDatesAfterToday, getDateInString } from "../HelperFunc/getDates";
 
@@ -10,6 +11,7 @@ function ExpenseForm() {
     const getDiscription = useRef()
     const getCategory = useRef()
     const getDate = useRef()
+    const getPlace=useRef()
 
     const Dispatch = useDispatch()
 
@@ -41,6 +43,7 @@ function ExpenseForm() {
         e.preventDefault()
         const data = {
             Amount: getAmount.current.value,
+            Place:getPlace.current.value,
             Discription: getDiscription.current.value,
             Category: getCategory.current.value,
             Date: getDate.current.value
@@ -53,11 +56,15 @@ function ExpenseForm() {
             <form>
                 <div className={Style.InputContainer}>
                     <label>Amount</label>
-                    <input type="number" ref={getAmount}></input>
+                    <input type="number" ref={getAmount} placeholder="Amount you spent..?"></input>
+                </div>
+                <div className={Style.InputContainer}>
+                    <label>Merchant</label>
+                    <input type="text" ref={getPlace} placeholder="Where you spent..?"></input>
                 </div>
                 <div className={Style.InputContainer}>
                     <label>Discrption</label>
-                    <input type="text" ref={getDiscription}></input>
+                    <input type="text" ref={getDiscription} placeholder="Add Note.."></input>
                 </div>
                 <div className={Style.InputContainer}>
                     <label>Date</label>
@@ -73,7 +80,7 @@ function ExpenseForm() {
                         <option value="other">Other</option>
                     </select>
                 </div>
-                <button onClick={AddExpenseHandler}>Add Expense</button>
+                <GreenButton onClickHandler={AddExpenseHandler}>Add Expense</GreenButton>
             </form>
         </div>
     )

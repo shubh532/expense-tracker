@@ -1,0 +1,30 @@
+.Container {
+    display: grid;
+    grid-template-columns: 34% 40% 25%;
+    grid-template-rows: auto 32rem;
+    gap: 10px;
+    padding: 10px;
+    height: 100%;
+    justify-content: center;
+}
+
+.dashboard {
+    grid-column: 1/4;
+    /* border: 2px solid green; */
+
+}
+
+.table {
+    /* border: 2px solid blue; */
+
+
+}
+
+.chart {
+    /* border: 2px solid yellow; */
+
+}
+
+.side_section {
+    border: 2px solid red;
+}

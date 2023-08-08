@@ -1,4 +1,5 @@
 import React from "react"
+import Style from "./Product.module.css"
 import ExpenseForm from "../ExpenseComponents/ExpenseForm";
 import ExpenseList from "../ExpenseComponents/ExpenseList";
 import Container from "../UIComponents/Container";
@@ -8,17 +9,16 @@ import { useSelector } from "react-redux";
 
 
 function Product() {
-    const ShowExpDetails=useSelector(state=>state.ExpenseReducer.ShowDetails)
-    console.log(ShowExpDetails,"from product")
+    const ShowExpDetails = useSelector(state => state.ExpenseReducer.ShowDetails)
+    console.log(ShowExpDetails, "from product")
     return (
-        <React.Fragment>
-            <ExpenseForm />
-            <Container>
-                <ExpenseList />
-                {ShowExpDetails&&<ExpDetails/>}
-                <ExpenseChart />
-            </Container>
-        </React.Fragment>
+        <div className={Style.Container}>
+            <div className={Style.dashboard}><ExpenseForm /></div>
+            <div className={Style.table}><ExpenseList /></div>
+            <div className={Style.chart}><ExpenseChart /></div>
+            <div className={Style.side_section}><h1>side_section</h1></div>
+            {ShowExpDetails && <ExpDetails />}
+        </div>
     )
 }
 

@@ -20,8 +20,10 @@ function App() {
 
   return (
     <React.Fragment>
-      <div className="mainContainer">
+      <header className='header'>
         <NavBar />
+      </header>
+      <main className="main">
         <Switch>
           <Route path="/" exact>
             <HomePage />
@@ -45,10 +47,11 @@ function App() {
             <Redirect to="/login" />
           </Route>
         </Switch>
-      </div>
+      </main>
     </React.Fragment >
 
   );
 }
 
 export default App;
+{/* */ }
