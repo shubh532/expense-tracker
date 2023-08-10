@@ -11,7 +11,7 @@ async function UpdateExpenseHandler(data){
         Date: data.Date
     }
     console.log(Data)
-    const Response=await axios.put(`https://mailboxauth-default-rtdb.firebaseio.com/${email}/${id}.json`,Data)
+    const Response=await axios.put(`https://database-793d0-default-rtdb.firebaseio.com/${email}/${id}.json`,Data)
     console.log(Response)
     return {...Response.data ,Date:getDateInString(Response.data.Date),id:id}
 }

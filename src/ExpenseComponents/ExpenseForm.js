@@ -26,7 +26,7 @@ function ExpenseForm() {
             email = email.replace(/[@]/g, "")
         }
         try {
-            const Response = await axios.post(`https://mailboxauth-default-rtdb.firebaseio.com/${email}.json`, { ...data })
+            const Response = await axios.post(`https://database-793d0-default-rtdb.firebaseio.com/${email}.json`, { ...data })
             if (Response.status === 200) {
                 console.log(Response)
                 Dispatch(ExpenseData.AddExpenseFunction({ ...data, Date:getDateInString(data.Date), id: Response.data.name }))

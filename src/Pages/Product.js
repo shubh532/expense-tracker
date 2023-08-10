@@ -2,10 +2,10 @@ import React from "react"
 import Style from "./Product.module.css"
 import ExpenseForm from "../ExpenseComponents/ExpenseForm";
 import ExpenseList from "../ExpenseComponents/ExpenseList";
-import Container from "../UIComponents/Container";
 import ExpenseChart from "../ExpenseComponents/ExpenseChart";
 import ExpDetails from "../ExpenseComponents/ExpDetails";
 import { useSelector } from "react-redux";
+import SideSection from "../ExpenseComponents/SideSection";
 
 
 function Product() {
@@ -16,7 +16,7 @@ function Product() {
             <div className={Style.dashboard}><ExpenseForm /></div>
             <div className={Style.table}><ExpenseList /></div>
             <div className={Style.chart}><ExpenseChart /></div>
-            <div className={Style.side_section}><h1>side_section</h1></div>
+            <div className={Style.side_section}><SideSection/></div>
             {ShowExpDetails && <ExpDetails />}
         </div>
     )

@@ -33,3 +33,9 @@
     align-items: center;
     justify-content: space-between;
 }
+.btns div{
+    width: 9rem;
+    display: grid;
+    grid-template-columns: 42% 50%;
+    gap: 10px;
+}

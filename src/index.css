@@ -13,6 +13,7 @@ code {
 }
 #root{
   background-color: var(--Full-Background);
+  color:var(--SecondaryClr);
   height: 715px;
   width: 100vw;
 }
