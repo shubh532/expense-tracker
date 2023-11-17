@@ -1,19 +1,20 @@
 import axios from "axios";
 import { getDateInString } from "../../HelperFunc/getDates";
 
-async function UpdateExpenseHandler(data){
-    const email=data.email
-    const id=data.id
-    const Data={
+async function UpdateExpenseHandler(data) {
+    const tokenId = localStorage.getItem("TokenID")
+    const id = data.id
+    const Data = {
         Amount: data.Amount,
-        Discription: data.Discription,
+        Discription: data.Description,
         Category: data.Category,
-        Date: data.Date
+        date: data.Date
     }
-    console.log(Data)
-    const Response=await axios.put(`https://database-793d0-default-rtdb.firebaseio.com/${email}/${id}.json`,Data)
+    console.log(Data, data)
+    const Response = await axios.put(`http://localhost:4000/updateExpense/${id}`, {...Data}, { headers: { "Authorization": tokenId } })
     console.log(Response)
-    return {...Response.data ,Date:getDateInString(Response.data.Date),id:id}
+    const UpdatedData = Response.data.dataValues
+    return { ...data, Date: getDateInString(data.Date), id:data.id }
 }
 
 

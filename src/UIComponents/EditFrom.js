@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux"
 import Card from "./Card"
 import { ExpenseData, UpdateExpense } from "../ReduxStore/ExpenseStore"
 function EditForm() {
-    const email = useSelector(state => state.Authecation.email)
     const id=useSelector(state=>state.ExpenseReducer.Editing.id)
     const getAmount = useRef()
     const getCategory = useRef()
@@ -25,7 +24,6 @@ function EditForm() {
             Category: getCategory.current.value,
             Date: getDate.current.value,
             Place: getPlace.current.value,
-            email: email,
             id:id
         }
         Dispatch(UpdateExpense(EditedExpense))

@@ -45,7 +45,6 @@ const ExpenseSclice = createSlice({
         },
         ShowExpenseDetails(state) {
             state.ShowDetails=!state.ShowDetails
-            console.log("ShowExpenseDetails form store")
         },
         getExpenseDetails(state, action){
             const id = action.payload
@@ -81,6 +80,7 @@ const ExpenseSclice = createSlice({
         })
         builder.addCase(UpdateExpense.fulfilled, (state, action) => {
             const UpdatedData = action.payload
+            console.log(UpdatedData,"updateExpense")
             const Data = state.Expense.map((item) => item.id === UpdatedData.id ? { ...UpdatedData } : item)
             state.Expense = Data
             state.Loader = false

@@ -10,7 +10,6 @@ import SideSection from "../ExpenseComponents/SideSection";
 
 function Product() {
     const ShowExpDetails = useSelector(state => state.ExpenseReducer.ShowDetails)
-    console.log(ShowExpDetails, "from product")
     return (
         <div className={Style.Container}>
             <div className={Style.dashboard}><ExpenseForm /></div>

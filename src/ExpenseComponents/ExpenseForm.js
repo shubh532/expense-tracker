@@ -11,25 +11,26 @@ function ExpenseForm() {
     const getDiscription = useRef()
     const getCategory = useRef()
     const getDate = useRef()
-    const getPlace=useRef()
+    const getPlace = useRef()
 
     const Dispatch = useDispatch()
 
     const currentDate = new Date().toJSON().slice(0, 10);
 
 
-    async function AddExpenseData(data) {
+    async function AddExpenseData(data, tokenId) {
         Dispatch(ExpenseData.Loader(true))
         let email = localStorage.getItem("Email")
-        if (email) {
-            email = email.replace(/[.]/g, "")
-            email = email.replace(/[@]/g, "")
-        }
         try {
-            const Response = await axios.post(`https://database-793d0-default-rtdb.firebaseio.com/${email}.json`, { ...data })
-            if (Response.status === 200) {
+            const Response = await axios.post(`http://localhost:4000/postExpense`,
+                { ...data },
+                { headers: { "Authorization": tokenId } }
+            )
+            if (Response.status === 201) {
                 console.log(Response)
-                Dispatch(ExpenseData.AddExpenseFunction({ ...data, Date:getDateInString(data.Date), id: Response.data.name }))
+                const Data = Response.data.dataValues
+                console.log(Data)
+                Dispatch(ExpenseData.AddExpenseFunction({ ...Data, Date: getDateInString(Data.Date), id: Data._id }))
                 Dispatch(ExpenseData.Loader(false))
             }
         } catch (err) {
@@ -40,15 +41,19 @@ function ExpenseForm() {
 
 
     function AddExpenseHandler(e) {
+        const userId = localStorage.getItem("userId")
+        const tokenId = localStorage.getItem("TokenID")
         e.preventDefault()
         const data = {
             Amount: getAmount.current.value,
-            Place:getPlace.current.value,
+            Place: getPlace.current.value,
             Discription: getDiscription.current.value,
             Category: getCategory.current.value,
-            Date: getDate.current.value
+            date: getDate.current.value,
+            userId: userId
+
         }
-        AddExpenseData(data)
+        AddExpenseData(data, tokenId)
     }
 
     return (

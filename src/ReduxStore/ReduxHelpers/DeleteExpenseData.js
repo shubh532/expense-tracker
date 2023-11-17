@@ -1,7 +1,8 @@
 import axios from "axios"
 const DeleteFunction = async (emailId) => {
     const { id, email } = emailId
-    await axios.delete(`https://database-793d0-default-rtdb.firebaseio.com/${email}/${id}.json`)
+    const tokenId = localStorage.getItem("TokenID")
+    await axios.delete(`http://localhost:4000/deleteExpense/${id}`,{ headers: { "Authorization": tokenId } })
     return id
 }
 

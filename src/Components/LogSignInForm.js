@@ -15,7 +15,7 @@ function LogSignInForm() {
     const Dispatch = useDispatch()
 
     const redirectPage = useHistory()
-
+    const getName = useRef()
     const getEmail = useRef()
     const getPassWord = useRef()
     const getConfirmPassWord = useRef()
@@ -28,7 +28,7 @@ function LogSignInForm() {
         e.preventDefault()
         try {
             SetLoading(true)
-            const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
+            const Response = await axios.post("http://localhost:4000/expense-login", {
                 email: getEmail.current.value,
                 password: getPassWord.current.value,
                 returnSecreToken: true
@@ -39,15 +39,23 @@ function LogSignInForm() {
                     }
                 })
             if (Response.status === 200) {
-                Dispatch(AuthActions.Login(Response.data.idToken))
-                localStorage.setItem("Email", Response.data.email)
-                localStorage.setItem("TokenID", Response.data.idToken)
+                console.log(Response)
+                Dispatch(AuthActions.Login(Response.data.tokenId))
+                localStorage.setItem("Email", Response.data.user.email)
+                localStorage.setItem("TokenID", Response.data.tokenId)
+                localStorage.setItem("userId",Response.data.user._id)
                 alert("Successfully LogIn")
                 SetLoading(false)
                 redirectPage.replace("/")
             }
-        } catch (error) {
-            alert("Invalid Credentials")
+        } catch (err) {
+            if (err.response.status === 400 || err.response.status === 404) {
+                alert(err.response.data.message)
+            } else if (err.response.status === 500) {
+                alert("Server Error")
+            } else {
+                console.log(err,"jhgjjhb")
+            }
             SetLoading(false)
         }
 
@@ -56,14 +64,14 @@ function LogSignInForm() {
     async function SignUpHandler(e) {
         e.preventDefault()
         if (getEmail.current.value === "" || getPassWord.current.value === "" || getConfirmPassWord.current.value === "") {
-            console.log("Chalo API")
             SetInpAlert(true)
             return
         }
         try {
             SetLoading(true)
             SetInpAlert(false)
-            const Response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDylzGVLX-rmTUX0T1v6RbDkssgdhg-ciI", {
+            const Response = await axios.post("http://localhost:4000/expense-authencation", {
+                name:getName.current.value,
                 email: getEmail.current.value,
                 password: getPassWord.current.value,
                 confirmPassword: getConfirmPassWord.current.value,
@@ -80,7 +88,7 @@ function LogSignInForm() {
             SetLoading(false)
         } catch (error) {
             SetLoading(false)
-            console.log(error)
+            alert(error.response.data.message)
         }
     }
 
@@ -89,6 +97,10 @@ function LogSignInForm() {
                 <h1>{isLogin ? "LogIn" : "Sign Up"}</h1>
                 {inpAlert && <p>Please Enter Creadentials</p>}
                 {!Loading ? <form >
+                    {!isLogin && <div className={Style.inputContainer}>
+                        <label>Name</label>
+                        <input type="text" required ref={getName}></input>
+                    </div>}
                     <div className={Style.inputContainer}>
                         <label>Email</label>
                         <input type="email" required ref={getEmail}></input>
