@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { AuthActions } from "../ReduxStore/Authentication";
 import { ThemeAction } from "../ReduxStore/ThemeReducer";
+import RazorPayCheckOut from "../HelperFunc/RazorPayIntegration";
 
 
 function NavBar() {
 
     const isLogin = useSelector(state => state.Authecation.isLogin)
-    const TotalAmt = useSelector(state => state.ExpenseReducer.TotalAmt)
+    // const TotalAmt = useSelector(state => state.ExpenseReducer.TotalAmt)
     const ThemeName = useSelector(state => state.ThemeReducer.themeClass)
     const Expensedata = useSelector(state => state.ExpenseReducer.Expense)
 
@@ -46,14 +47,12 @@ function NavBar() {
             </div>
             <div className={Style.NavTab} >
                 <Link to="/"><span>Home</span></Link>
-                <Link to="/product"><span>Product</span></Link>
-                <Link to="/abutus"><span>About Us</span></Link>
-                <span>{TotalAmt >= 10000 && <button className={Style.PremiumBtn}>Premium</button>}</span>
+                <Link to="/product"><span>Tracker</span></Link>
+                <button onClick={() => RazorPayCheckOut()} className={Style.PremiumBtn}>Premium</button>
             </div>
             <div className={Style.LogInOutBsns}>
                 <CSVLink data={Expensedata} className={Style.ToggleBtn}><img src={DownLoadBtn} alt="downlod"></img></CSVLink>
                 <button onClick={ThemeHandler} className={Style.ToggleBtn}><img src={DarkmodeBtn} alt="darkmode"></img></button>
-                {/* {!ToggleThemeBtn && <button onClick={ThemeHandler} className={Style.themeToggle}><img src={LightMode}></img></button>} */}
                 {isLogin && <button onClick={LogOutHandler} className={Style.LogOutBtn}>LogOut</button>}
                 {!isLogin && <Link to="/login"><button className={Style.LogInBtn}>LogIn</button></Link>}
                 {isLogin && <div className={Style.Profile}>

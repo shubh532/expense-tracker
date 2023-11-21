@@ -62,11 +62,13 @@
     background-color: rgba(26, 24, 22);
     padding: 10px;
     border-radius: 23px;
+    transition: ease-in-out 0.2s;
 }
 
 .PremiumBtn:hover {
     cursor: pointer;
     background-color: rgb(74, 74, 74);
+    border: 2px solid gold;
 }
 
 .LogInOutBsns .LogInBtn {
